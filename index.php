@@ -99,10 +99,10 @@
                     
                     
                 </form>
-                <div class="progress-bar">
+                <div class="progress-bar" id="progress-bar">
                         <div class="progress-bar-fill" id="progressBarFill"><span>0%</span></div>
                 </div>
-                <div class="wait">
+                <div class="wait" id="wait">
                     <span>
                         Converting...
                     </span>
@@ -111,6 +111,7 @@
             </div>
         </div>
     </div>
+    <div class="end"></div>
 </body>
 <script>
     const bitrate = document.getElementById('bitrate');
@@ -262,6 +263,7 @@
     var progressBar = $('.progress-bar');
     var progressBarFill = progressBar.find('.progress-bar-fill');
     var progressBarSpan = progressBarFill.find('span');
+    const endblock = document.querySelector('.end');
     
     $.ajax({
       url: 'includes/process.php',
@@ -271,6 +273,7 @@
       contentType: false,
       processData: false,
       xhr: function() {
+        
         var xhr = new window.XMLHttpRequest();
         
         xhr.upload.addEventListener('progress', function(e) {
@@ -279,8 +282,16 @@
             progressBarFill.css('width', percentage + '%');
             progressBarSpan.text(percentage + '%');
             if (percentage >= 100) {
-              $('#progressBarFill').css('display', 'none');
+                progressBarSpan.text('Uploaded!');
+              
               $('.wait').css('display', 'block');
+              endblock.scrollIntoView(
+                    {
+                        behavior: 'smooth',
+                        block: 'end',
+                        inline: 'nearest'
+                    }
+                );
             }
           }
         });
@@ -289,13 +300,31 @@
       },
       beforeSend: function() {
         progressBar.show();
+        endblock.scrollIntoView(
+            {
+                behavior: 'smooth',
+                block: 'end',
+                inline: 'nearest'
+            }
+        );
       },
       success: function(response) {
         $('#submit').attr('disabled', false);
-        if (response.code == 200) {
-            console.log("here")
-            var downloadLink = $('<a>').attr('href', 'output/' + response.filename).text('Download File');
+        if (true) {
+            var downloadLink = $('<a>').attr('href', 'includes/output/' + response.filename).text('[converted file]').attr('target', '_blank');
+            //window.open("includes/output/" + response.filename, "_blank");
             $('#out').html(downloadLink);
+            endblock.scrollIntoView(
+                {
+                    behavior: 'smooth',
+                    block: 'end',
+                    inline: 'nearest'
+                }
+            );
+            $('#submit').attr('disabled', false);
+            $('#progres-bar').css('display', 'none');
+            $('#wait').css('display', 'none');
+            
         } else {
             $('#out').text(response.message);
         }
