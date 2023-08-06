@@ -114,7 +114,7 @@
 </body>
 <script>
     const bitrate = document.getElementById('bitrate');
-    bitrate.addEventListener('change', function() {
+    bitrate.addEventListener('input', function() {
         console.log(bitrate.value);
 
         //set the value of the bitrate field to the value of the slider
@@ -135,7 +135,7 @@
     });
 
     const bitrate_field = document.getElementById('bitrate_field');
-    bitrate_field.addEventListener('change', function() {
+    bitrate_field.addEventListener('input', function() {
         console.log(bitrate_field.value);
 
         //set the value of the bitrate slider to the value of the field
@@ -156,7 +156,7 @@
     });
 
     const frame_rate = document.getElementById('frame_rate');
-    frame_rate.addEventListener('change', function() {
+    frame_rate.addEventListener('input', function() {
         console.log(frame_rate.value);
 
         //set the value of the bitrate field to the value of the slider
@@ -164,7 +164,7 @@
     });
 
     const frame_rate_field = document.getElementById('frame_rate_field');
-    frame_rate_field.addEventListener('change', function() {
+    frame_rate_field.addEventListener('input', function() {
         console.log(frame_rate_field.value);
 
         //set the value of the bitrate slider to the value of the field
@@ -185,7 +185,7 @@
     });
     
     const audio_bitrate = document.getElementById('audio_bitrate');
-    audio_bitrate.addEventListener('change', function() {
+    audio_bitrate.addEventListener('input', function() {
         console.log(audio_bitrate.value);
 
         //set the value of the bitrate field to the value of the slider
@@ -193,7 +193,7 @@
     });
 
     const audio_bitrate_field = document.getElementById('audio_bitrate_field');
-    audio_bitrate_field.addEventListener('change', function() {
+    audio_bitrate_field.addEventListener('input', function() {
         console.log(audio_bitrate_field.value);
 
         //set the value of the bitrate slider to the value of the field
@@ -214,7 +214,7 @@
     });
 
     const audio_sample_rate = document.getElementById('audio_sample_rate');
-    audio_sample_rate.addEventListener('change', function() {
+    audio_sample_rate.addEventListener('input', function() {
         console.log(audio_sample_rate.value);
 
         //set the value of the bitrate field to the value of the slider
@@ -222,7 +222,7 @@
     });
 
     const audio_sample_rate_field = document.getElementById('audio_sample_rate_field');
-    audio_sample_rate_field.addEventListener('change', function() {
+    audio_sample_rate_field.addEventListener('input', function() {
         console.log(audio_sample_rate_field.value);
 
         //set the value of the bitrate slider to the value of the field
@@ -295,7 +295,7 @@
         if (response.code == 200) {
             console.log("here")
             var downloadLink = $('<a>').attr('href', 'output/' + response.filename).text('Download File');
-            $('#out').empty().append(downloadLink);
+            $('#out').html(downloadLink);
         } else {
             $('#out').text(response.message);
         }
